@@ -9,6 +9,13 @@ jobs:
       with:
         submodules: recursive
 
+    - name: Download Missing Audio Library
+      run: |
+        curl -L -o bass24.zip https://un4seen.com
+        powershell Expand-Archive -Path bass24.zip -DestinationPath .
+        copy c/bass.lib .
+        copy bass.dll .
+
     - name: Configure CMake
       run: cmake -B build -A Win32
 
