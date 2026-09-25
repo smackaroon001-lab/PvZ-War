@@ -1,0 +1,22 @@
+name: Build PvZ Mod
+on: [push, workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: recursive
+
+    - name: Configure CMake
+      run: cmake -B build -A Win32
+
+    - name: Build Executable
+      run: cmake --build build --config Release
+
+    - name: Upload Mod Executable
+      uses: actions/upload-artifact@v4
+      with:
+        name: My-PvZ-Mod
+        path: build/Release/*.exe
